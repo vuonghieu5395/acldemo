@@ -3,8 +3,12 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <form method="post" action="">
+            <form method="post" enctype="multipart/form-data" action="">
                 @csrf
+                <div class="form-group">
+                    <label for="avatar" class="col-form-label text-md-right">{{ __('Image') }}</label>
+                    <input type="file" class="form-control-file" name="fileToUpload" id="exampleInputFile" aria-describedby="fileHelp">
+                </div>
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" placeholder="Enter name" name="name">

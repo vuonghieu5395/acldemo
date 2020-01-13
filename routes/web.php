@@ -27,6 +27,8 @@ Route::middleware(['auth'])->group(function () {
             // edit user
         Route::get('/edit/{id}','UserController@edit')->name('user.edit');
         Route::post('/edit/{id}','UserController@update')->name('user.edit');
+        Route::get('/delete/{id}','UserController@delete')->name('user.delete');
+        Route::post('/delete/{id}','UserController@destroy')->name('user.destroy');
 
     });
     // module roles

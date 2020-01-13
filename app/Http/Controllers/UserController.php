@@ -7,6 +7,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -21,6 +23,7 @@ class UserController extends Controller
 
     public function index()
     {
+
         $listUser = $this->user->all();
         return view('user.index', compact('listUser'));
     }
@@ -36,9 +39,14 @@ class UserController extends Controller
         try {
             DB::beginTransaction();
             // insert data đến bảng user table
+
+            $fileName = $request->file('fileToUpload')->getClientOriginalName();
+
+            $request->file('fileToUpload')->storeAs('logos',$fileName);
             $userCreate = $this->user->create([
                 'name' => $request->name,
                 'email' => $request->email,
+                'image' => $fileName,
                 'password' => Hash::make($request->password),
             ]);
 
@@ -103,5 +111,8 @@ class UserController extends Controller
         } catch (\Exception $exception) {
             DB::rollBack();
         }
+    }
+    public function destroy($id){
+        dd(123);
     }
 }
